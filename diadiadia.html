@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="sk">
+<head>
+<meta charset="UTF-8">
+<title>Všetko najlepšie! 🎂</title>
+<style>
+  body {
+    margin: 0;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: 'Comic Sans MS', sans-serif;
+    background: linear-gradient(135deg, #ffdde1, #ee9ca7);
+    text-align: center;
+  }
+
+  .screen {
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    padding: 20px;
+    position: relative;
+    width: 100%;
+    height: 100%;
+    justify-content: center;
+  }
+
+  .active {
+    display: flex;
+  }
+
+  h1 {
+    font-size: 1.8em;
+    color: #4a235a;
+    max-width: 650px;
+    line-height: 1.5;
+  }
+
+  .buttons {
+    display: flex;
+    gap: 30px;
+    position: relative;
+  }
+
+  button {
+    padding: 15px 35px;
+    font-size: 1.2em;
+    border: none;
+    border-radius: 15px;
+    cursor: pointer;
+    background: #8e44ad;
+    color: white;
+    transition: 0.2s;
+  }
+
+  button:hover {
+    background: #6c3483;
+  }
+
+  #noBtn {
+    position: relative;
+  }
+
+  input {
+    padding: 10px;
+    font-size: 1.2em;
+    border-radius: 10px;
+    border: 2px solid #8e44ad;
+    text-align: center;
+    width: 100px;
+  }
+
+  #result {
+    color: red;
+    font-weight: bold;
+  }
+
+  #giftScreen h1 {
+    font-size: 1.5em;
+    line-height: 1.7;
+  }
+
+  .emoji {
+    font-size: 3em;
+  }
+</style>
+</head>
+<body>
+
+<!-- 1️⃣ ÚVODNÁ OBRAZOVKA -->
+<div class="screen active" id="screen1">
+  <div class="emoji">🎉✈️</div>
+  <h1>Všetko najlepšie! Si pripravená si vypočítať darček?</h1>
+  <div class="buttons">
+    <button id="yesBtn" onclick="goToScreen2()">Áno</button>
+    <button id="noBtn">Nie</button>
+  </div>
+</div>
+
+<!-- 2️⃣ OVEROVACIA OBRAZOVKA -->
+<div class="screen" id="screen2">
+  <div class="emoji">🧳🔢</div>
+  <h1>Dokáž, že máš dnes narodeniny</h1>
+  <h2>2026 - 2006 = ?</h2>
+  <input type="number" id="answerInput" placeholder="?">
+  <button onclick="checkAnswer()">Potvrdiť</button>
+  <p id="result"></p>
+</div>
+
+<!-- 3️⃣ FINÁLNA OBRAZOVKA -->
+<div class="screen" id="giftScreen">
+  <div class="emoji">💌🎂✈️</div>
+  <h1>
+    Všetko najlepšie k narodeninám! 🎉<br><br>
+    
+    Prajem ti, aby si tento rok precestovala celý svet 🌍✈️ – 
+    nové letiská, nové mestá, nové dobrodružstvá a aby ti nikdy 
+    nedošiel battery na telefóne uprostred najkrajšieho výhľadu 📸🗺️<br><br>
+    
+    A pamätaj – FIT za 3 roky je úplny easy squeezy lemon peasy 😏💪 
+    Takže žiadne myšlienky na prestup ani vypadnutie, jasné? 
+    Lebo kto mi bude robiť gossip buddy na prednáškach, keď 
+    ťa odtiaľ niekto vyhodí?! 👀📚<br><br>
+    
+    Užívaj si svoj deň, zaslúžiš si ho celý! 🥳<br>
+    happy bday stinky 🤗
+  </h1>
+</div>
+
+<script>
+  const noBtn = document.getElementById('noBtn');
+
+  noBtn.addEventListener('mouseover', moveButton);
+  noBtn.addEventListener('click', moveButton);
+
+  function moveButton() {
+    const maxX = window.innerWidth - noBtn.offsetWidth - 20;
+    const maxY = window.innerHeight - noBtn.offsetHeight - 20;
+
+    const randomX = Math.random() * maxX;
+    const randomY = Math.random() * maxY;
+
+    noBtn.style.position = 'fixed';
+    noBtn.style.left = randomX + 'px';
+    noBtn.style.top = randomY + 'px';
+  }
+
+  function goToScreen2() {
+    document.getElementById('screen1').classList.remove('active');
+    document.getElementById('screen2').classList.add('active');
+  }
+
+  function checkAnswer() {
+    const input = document.getElementById('answerInput').value;
+    const result = document.getElementById('result');
+
+    if (parseInt(input) === 20) {
+      document.getElementById('screen2').classList.remove('active');
+      document.getElementById('giftScreen').classList.add('active');
+    } else {
+      result.innerText = "To nie je správne, skús znova! 😉";
+    }
+  }
+</script>
+
+</body>
+</html>
